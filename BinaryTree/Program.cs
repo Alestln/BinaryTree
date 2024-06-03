@@ -28,7 +28,7 @@ class Program
         Console.WriteLine($"Searching for {searchValue} in the tree.");
         var foundNode = bst.Search(searchValue);
         
-        Console.WriteLine(foundNode != null
+        Console.WriteLine(foundNode is not null
             ? $"Found node with value: {foundNode.Value}"
             : "Value not found in the tree.");
 
