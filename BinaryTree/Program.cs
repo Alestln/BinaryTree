@@ -40,7 +40,5 @@ class Program
             Console.WriteLine("Inorder Traversal after removing the minimum value:");
             bst.Inorder(bst.Root);
         }
-
-        Console.WriteLine();
     }
 }
