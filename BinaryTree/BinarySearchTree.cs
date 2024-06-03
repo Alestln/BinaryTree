@@ -69,7 +69,10 @@ public class BinarySearchTree
     
     public void Remove(int value)
     {
-        Root = RemoveRecursive(Root, value);
+        while (Search(value) is not null)
+        {
+            Root = RemoveRecursive(Root, value);
+        }
     }
     
     private TreeNode? RemoveRecursive(TreeNode? node, int value)
@@ -89,32 +92,43 @@ public class BinarySearchTree
         }
         else
         {
-            if (node.Left is null)
-            {
-                return node.Right;
-            }
-
-            if (node.Right is null)
-            {
-                return node.Left;
-            }
-
-            node.Value = MinValue(node.Right);
-            node.Right = RemoveRecursive(node.Right, node.Value);
+            node = RemoveNode(node);
         }
 
         return node;
     }
     
+    private TreeNode? RemoveNode(TreeNode? node)
+    {
+        if (node is null)
+        {
+            return null;
+        }
+
+        if (node.Left is null)
+        {
+            return node.Right;
+        }
+
+        if (node.Right is null)
+        {
+            return node.Left;
+        }
+
+        var minValue = MinValue(node.Right);
+        node.Right = RemoveRecursive(node.Right, minValue);
+        
+        return node;
+    }
+    
     public int MinValue(TreeNode node)
     {
-        var minValue = node.Value;
         while (node.Left is not null)
         {
-            minValue = node.Left.Value;
             node = node.Left;
         }
-        return minValue;
+        
+        return node.Value;
     }
 
     public void Preorder(TreeNode? node)

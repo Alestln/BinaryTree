@@ -9,7 +9,7 @@ class Program
         var rand = new Random();
         for (var i = 0; i < 10; i++)
         {
-            bst.Add(rand.Next(1, 100));
+            bst.Add(rand.Next(1, 10));
         }
 
         Console.WriteLine("Preorder Traversal:");
@@ -24,7 +24,7 @@ class Program
         bst.LevelOrder();
         Console.WriteLine();
 
-        var searchValue = rand.Next(1, 100);
+        var searchValue = rand.Next(1, 10);
         Console.WriteLine($"Searching for {searchValue} in the tree.");
         var foundNode = bst.Search(searchValue);
         
@@ -35,7 +35,7 @@ class Program
         Console.WriteLine("Removing the minimum value from the tree.");
         if (bst.Root is not null)
         {
-            bst.Remove(bst.MinValue(bst.Root));
+            bst.Remove(searchValue);
 
             Console.WriteLine("Inorder Traversal after removing the minimum value:");
             bst.Inorder(bst.Root);
