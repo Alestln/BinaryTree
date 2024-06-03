@@ -35,7 +35,7 @@ class Program
         Console.WriteLine("Removing the minimum value from the tree.");
         if (bst.Root is not null)
         {
-            bst.Remove(searchValue);
+            bst.Remove(bst.MinValue(bst.Root));
 
             Console.WriteLine("Inorder Traversal after removing the minimum value:");
             bst.Inorder(bst.Root);
