@@ -4,7 +4,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        var bst = new BinarySearchTree();
+        var bst = new BinaryTree();
 
         var rand = new Random();
         for (var i = 0; i < 10; i++)
@@ -47,7 +47,7 @@ class Program
         bst.SaveToFile(bst.Root, filePath);
         
         // Десериализация дерева
-        var bstFromFile = new BinarySearchTree();
+        var bstFromFile = new BinaryTree();
         bstFromFile.LoadFromFile(filePath);
     }
 }

@@ -1,8 +1,6 @@
-﻿using System.Text.Json;
+﻿namespace BinaryTree;
 
-namespace BinaryTree;
-
-public class BinarySearchTree
+public class BinaryTree
 {
     public TreeNode? Root { get; private set; }
 
