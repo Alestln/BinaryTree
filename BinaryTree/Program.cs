@@ -40,5 +40,14 @@ class Program
             Console.WriteLine("Inorder Traversal after removing the minimum value:");
             bst.Inorder(bst.Root);
         }
+
+        var filePath = "tree.txt";
+        
+        // Сериализация дерева
+        bst.SaveToFile(bst.Root, filePath);
+        
+        // Десериализация дерева
+        var bstFromFile = new BinarySearchTree();
+        bstFromFile.LoadFromFile(filePath);
     }
 }

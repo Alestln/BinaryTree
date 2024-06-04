@@ -1,9 +1,11 @@
-﻿namespace BinaryTree;
+﻿using System.Text.Json;
+
+namespace BinaryTree;
 
 public class BinarySearchTree
 {
     public TreeNode? Root { get; private set; }
-    
+
     public void Add(int value)
     {
         if (Root is null)
@@ -66,7 +68,7 @@ public class BinarySearchTree
             node = value < node.Value ? node.Left : node.Right;
         }
     }
-    
+
     public void Remove(int value)
     {
         while (Search(value) is not null)
@@ -74,7 +76,7 @@ public class BinarySearchTree
             Root = RemoveRecursive(Root, value);
         }
     }
-    
+
     private TreeNode? RemoveRecursive(TreeNode? node, int value)
     {
         if (node is null)
@@ -97,7 +99,7 @@ public class BinarySearchTree
 
         return node;
     }
-    
+
     private TreeNode? RemoveNode(TreeNode? node)
     {
         if (node is null)
@@ -117,17 +119,17 @@ public class BinarySearchTree
 
         var minValue = MinValue(node.Right);
         node.Right = RemoveRecursive(node.Right, minValue);
-        
+
         return node;
     }
-    
+
     public int MinValue(TreeNode node)
     {
         while (node.Left is not null)
         {
             node = node.Left;
         }
-        
+
         return node.Value;
     }
 
@@ -162,7 +164,7 @@ public class BinarySearchTree
             break;
         }
     }
-    
+
     public void LevelOrder()
     {
         if (Root is null)
@@ -188,5 +190,51 @@ public class BinarySearchTree
                 queue.Enqueue(node.Right);
             }
         }
+    }
+
+    public void SaveToFile(TreeNode? root, string filePath)
+    {
+        using var writer = new StreamWriter(filePath);
+        WriteNode(writer, root);
+    }
+
+    private void WriteNode(StreamWriter writer, TreeNode? node)
+    {
+        while (true)
+        {
+            if (node is null)
+            {
+                writer.WriteLine("null");
+                return;
+            }
+
+            writer.WriteLine(node.Value);
+            WriteNode(writer, node.Left);
+            node = node.Right;
+        }
+    }
+
+    public void LoadFromFile(string filePath)
+    {
+        using var reader = new StreamReader(filePath);
+        Root = ReadNode(reader);
+    }
+
+    private TreeNode? ReadNode(StreamReader reader)
+    {
+        var line = reader.ReadLine();
+        if (line == "null" || line == null)
+        {
+            return null;
+        }
+
+        var value = int.Parse(line);
+        var node = new TreeNode(value)
+        {
+            Left = ReadNode(reader),
+            Right = ReadNode(reader)
+        };
+
+        return node;
     }
 }
