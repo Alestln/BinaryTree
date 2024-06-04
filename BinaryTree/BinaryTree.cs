@@ -2,7 +2,7 @@
 
 public class BinaryTree
 {
-    public TreeNode? Root { get; private set; }
+    public TreeNode? Root { get; set; }
 
     public void Add(int value)
     {
@@ -188,51 +188,5 @@ public class BinaryTree
                 queue.Enqueue(node.Right);
             }
         }
-    }
-
-    public void SaveToFile(TreeNode? root, string filePath)
-    {
-        using var writer = new StreamWriter(filePath);
-        WriteNode(writer, root);
-    }
-
-    private void WriteNode(StreamWriter writer, TreeNode? node)
-    {
-        while (true)
-        {
-            if (node is null)
-            {
-                writer.WriteLine("null");
-                return;
-            }
-
-            writer.WriteLine(node.Value);
-            WriteNode(writer, node.Left);
-            node = node.Right;
-        }
-    }
-
-    public void LoadFromFile(string filePath)
-    {
-        using var reader = new StreamReader(filePath);
-        Root = ReadNode(reader);
-    }
-
-    private TreeNode? ReadNode(StreamReader reader)
-    {
-        var line = reader.ReadLine();
-        if (line == "null" || line == null)
-        {
-            return null;
-        }
-
-        var value = int.Parse(line);
-        var node = new TreeNode(value)
-        {
-            Left = ReadNode(reader),
-            Right = ReadNode(reader)
-        };
-
-        return node;
     }
 }

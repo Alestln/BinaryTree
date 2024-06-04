@@ -40,15 +40,20 @@ class Program
             Console.WriteLine("Inorder Traversal after removing the minimum value:");
             bst.Inorder(bst.Root);
         }
+
+        var printer = new PrintBinaryTree();
+        Console.WriteLine("\nBinary tree: ");
+        printer.Print(bst.Root, "");
         
         var filePath = "tree.txt";
-        
-        bst.SaveToFile(bst.Root, filePath);
-        
-        var bstFromFile = new BinaryTree();
-        bstFromFile.LoadFromFile(filePath);
 
-        Console.WriteLine("\nBinary tree: ");
-        new PrintBinaryTree().Print(bst.Root, "");
+        Console.WriteLine("Saving binary tree in file...");
+        new SaveBinaryTree().Save(bst.Root, filePath);
+
+        Console.WriteLine("Loading binary tree in file...");
+        var bstFromFile = new LoadBinaryTree().Load(filePath);
+
+        Console.WriteLine("\nBinary tree from file: ");
+        printer.Print(bstFromFile.Root, "");
     }
 }
